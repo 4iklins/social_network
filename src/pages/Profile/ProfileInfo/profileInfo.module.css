@@ -1,0 +1,44 @@
+.profilInfo {
+  max-width: 300px;
+  min-width: 260px;
+  padding: 40px 15px 20px;
+  background-color: var(--bg-secondary);
+  position: relative;
+  z-index: 0;
+}
+
+.photoWrapper {
+}
+
+.profilInfo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100px;
+  background-color: var(--primary);
+  z-index: -1;
+}
+
+.photo {
+  margin: 0 auto;
+  width: 110px;
+  height: 110px;
+  border: 5px solid var(--bg-secondary);
+  border-radius: 50%;
+  background-color: var(--primary);
+}
+
+.description {
+}
+
+.name {
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 800;
+  margin: 20px 0 15px;
+}
+
+.status {
+}

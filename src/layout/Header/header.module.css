@@ -1,0 +1,55 @@
+.header {
+  position: fixed;
+  left: 0;
+  right: 0;
+}
+
+.flexWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menuList {
+  display: flex;
+}
+
+.menuItem + .menuItem {
+  margin-left: 10px;
+}
+
+.menuItem {
+  position: relative;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: capitalize;
+}
+
+.menuItem a {
+  padding: 5px;
+}
+
+.menuItem a::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: 0.2s ease-in-out;
+  opacity: 0;
+}
+
+.menuItem .active::before {
+  bottom: -10px;
+  opacity: 1;
+}
+
+.menuItem:hover a {
+  color: var(--primary);
+  transition: 0.2s ease-in-out;
+}
