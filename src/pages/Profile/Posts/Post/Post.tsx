@@ -11,7 +11,10 @@ const Post = (props: PostPropsType) => {
       <div className={style.photoWrapper}>
         <Icon id='user' color='#181818' viewBox='0 0 200 200' width='24' heigth='24' />
       </div>
-      <p>{props.text}</p>
+      <div className={style.textBlock}>
+        <div className={style.name}>Andrei</div>
+        <p>{props.text}</p>
+      </div>
     </div>
   );
 };
