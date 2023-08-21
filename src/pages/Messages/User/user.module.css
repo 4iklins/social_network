@@ -1,0 +1,11 @@
+.user {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.name {
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}

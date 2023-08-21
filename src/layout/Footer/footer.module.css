@@ -1,0 +1,10 @@
+.footer {
+  text-align: center;
+}
+
+.footer span {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--font-secondary);
+}

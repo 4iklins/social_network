@@ -1,12 +1,14 @@
 import style from './main.module.css';
 import Container from '../../components/Wrapper/Wrapper';
 import Profile from '../../pages/Profile/Profile';
+import Messages from '../../pages/Messages/Messages';
 
 const Main = () => {
   return (
     <main className={style.main}>
       <Container>
-        <Profile />
+        {/* <Profile /> */}
+        <Messages />
       </Container>
     </main>
   );

@@ -2,16 +2,16 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
 }
 
 .createPost {
   display: flex;
-  gap: 10px;
+  gap: 20px;
 }
 
 .postsWrapper {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
