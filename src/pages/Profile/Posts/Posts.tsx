@@ -7,10 +7,10 @@ const Posts = () => {
   return (
     <div className={style.posts}>
       <div className={style.createPost}>
-        <InputField />
+        <InputField type='text' placeholder='Type something...' />
         <Button>Send</Button>
       </div>
-      <div>
+      <div className={style.postsWrapper}>
         <Post text='Lorem ipsum, dolor sit amet consectetur adipisicing elit.' />
         <Post text='Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit amet consectetur adipisicing elit' />
       </div>

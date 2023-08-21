@@ -1,4 +1,5 @@
 .profilInfo {
+  align-self: start;
   max-width: 300px;
   min-width: 260px;
   padding: 40px 15px 20px;
@@ -8,6 +9,15 @@
 }
 
 .photoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 110px;
+  height: 110px;
+  border: 5px solid var(--bg-secondary);
+  border-radius: 50%;
+  background-color: var(--primary);
 }
 
 .profilInfo::before {
@@ -19,15 +29,6 @@
   height: 100px;
   background-color: var(--primary);
   z-index: -1;
-}
-
-.photo {
-  margin: 0 auto;
-  width: 110px;
-  height: 110px;
-  border: 5px solid var(--bg-secondary);
-  border-radius: 50%;
-  background-color: var(--primary);
 }
 
 .description {

@@ -1,8 +1,17 @@
 .posts {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .createPost {
   display: flex;
   gap: 10px;
+}
+
+.postsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
