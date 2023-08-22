@@ -5,7 +5,32 @@
 }
 
 .name {
+  position: relative;
   margin-left: 10px;
   font-size: 18px;
   font-weight: 600;
+}
+
+.name::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+  transition: 0.2s ease-in-out;
+  opacity: 0;
+}
+
+.active .name::before {
+  right: -20px;
+  opacity: 1;
+}
+
+.user:hover {
+  color: var(--primary);
+  transition: 0.2s ease-in-out;
 }
