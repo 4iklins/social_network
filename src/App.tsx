@@ -3,8 +3,9 @@ import style from './App.module.css';
 import Header from './layout/Header/Header';
 import Main from './layout/Main/Main';
 import Footer from './layout/Footer/Footer';
+import { IState } from './data/state';
 
-function App() {
+function App({ messagesPage, profilePage }: IState) {
   return (
     <div className={style.app}>
       <Header />
