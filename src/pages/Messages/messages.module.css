@@ -5,15 +5,13 @@
 }
 .usersBlock {
   max-width: 300px;
-  min-width: 260px;
+  min-width: 300px;
   padding-left: 10px;
   background-color: var(--bg-secondary);
   border: 10px solid var(--bg-secondary);
   overflow-y: auto;
 }
 
-.usersList {
-}
 .usersList li + li {
   margin-top: 15px;
 }
@@ -37,6 +35,7 @@
   flex-direction: column;
   align-items: flex-start;
   margin-left: 10px;
+  gap: 20px;
 }
 
 .sendMessage {

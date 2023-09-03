@@ -3,13 +3,14 @@ import Container from '../../components/Wrapper/Wrapper';
 import Profile from '../../pages/Profile/Profile';
 import Messages from '../../pages/Messages/Messages';
 import { Route } from 'react-router-dom';
+import { IState } from '../../data/state';
 
-const Main = () => {
+const Main = ({ messagesPage, profilePage }: IState) => {
   return (
     <main className={style.main}>
       <Container>
-        <Route path={`/profile`} render={() => <Profile />} />
-        <Route path={`/messages`} render={() => <Messages />} />
+        <Route path={`/profile`} render={() => <Profile {...profilePage} />} />
+        <Route path={`/messages`} render={() => <Messages {...messagesPage} />} />
       </Container>
     </main>
   );

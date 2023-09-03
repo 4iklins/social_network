@@ -1,9 +1,10 @@
 import Button from '../../../components/Button/Button';
 import InputField from '../../../components/InputField/InputField';
+import { PostType } from '../../../data/state';
 import Post from './Post/Post';
 import style from './posts.module.css';
 
-const Posts = () => {
+const Posts = ({ posts }: { posts: PostType[] }) => {
   return (
     <div className={style.posts}>
       <div className={style.createPost}>
@@ -11,8 +12,9 @@ const Posts = () => {
         <Button>Send</Button>
       </div>
       <div className={style.postsWrapper}>
-        <Post text='Lorem ipsum, dolor sit amet consectetur adipisicing elit.' />
-        <Post text='Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sit amet consectetur adipisicing elit' />
+        {posts.map(post => (
+          <Post key={post.id} text={post.text} />
+        ))}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 .profilInfo {
   align-self: start;
   max-width: 300px;
-  min-width: 260px;
+  min-width: 300px;
   padding: 40px 15px 20px;
   background-color: var(--bg-secondary);
   position: relative;
@@ -31,15 +31,9 @@
   z-index: -1;
 }
 
-.description {
-}
-
 .name {
   font-size: 24px;
   line-height: 1.2;
   font-weight: 800;
   margin: 20px 0 15px;
-}
-
-.status {
 }

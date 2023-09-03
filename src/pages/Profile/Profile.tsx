@@ -1,12 +1,13 @@
+import { ProfilePageType } from '../../data/state';
 import Posts from './Posts/Posts';
 import style from './profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-const Profile = () => {
+const Profile = ({ posts, newPostText }: ProfilePageType) => {
   return (
     <section className={style.profile}>
       <ProfileInfo />
-      <Posts />
+      <Posts posts={posts} />
     </section>
   );
 };

@@ -3,19 +3,21 @@ import Button from '../../components/Button/Button';
 import style from './messages.module.css';
 import User from './User/User';
 import MessagesList from './MessagesList';
+import { MessagesPageType } from '../../data/state';
 
-const Messages = () => {
+const Messages = ({ users, newMessageText }: MessagesPageType) => {
   return (
     <section className={style.messages}>
       <div className={style.usersBlock}>
         <ul className={style.usersList}>
-          <User id='1' />
-          <User id='2' />
+          {users.map(user => (
+            <User id={user.id} name={user.name} avatar={user.avatar} key={user.id} />
+          ))}
         </ul>
       </div>
       <div className={style.messagesWrapper}>
         <div className={style.messagesBlock}>
-          <MessagesList />
+          <MessagesList user={users[0]} />
         </div>
         <div className={style.sendMessage}>
           <InputField type='text' placeholder='Type your message' />

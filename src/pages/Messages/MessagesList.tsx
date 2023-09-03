@@ -1,17 +1,14 @@
+import { message } from 'antd';
+import { UserType } from '../../data/state';
 import Message from './Message/Message';
 import style from './messages.module.css';
 
-const MessagesList = () => {
+const MessagesList = ({ user }: { user: UserType }) => {
   return (
     <ul className={style.messagesList}>
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
+      {user.messages?.map(message => (
+        <Message avatar={user.avatar} isMe={message.isMe} message={message.message} key={user.id} />
+      ))}
     </ul>
   );
 };

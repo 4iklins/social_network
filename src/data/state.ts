@@ -4,27 +4,27 @@ export interface IState {
 }
 
 export interface ProfilePageType {
-  posts: Post[];
+  posts: PostType[];
   newPostText: string;
 }
-export interface Post {
+export interface PostType {
   id: number;
   text: string;
 }
 
 export interface MessagesPageType {
-  users: User[];
+  users: UserType[];
   newMessageText: string;
 }
 
-export interface User {
+export interface UserType {
   id: number;
   name: string;
   avatar: string;
-  messages: Message[];
+  messages?: MessageType[];
 }
 
-export interface Message {
+export interface MessageType {
   isMe: boolean;
   message: string;
 }
@@ -54,11 +54,13 @@ export const state: IState = {
         messages: [
           {
             isMe: false,
-            message: 'Bor!',
+            message:
+              'Bor!Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis quis dolores quidem eum voluptates eaque, optio.',
           },
           {
             isMe: true,
-            message: 'Backinofsky!',
+            message:
+              'Backinofsky!Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis quis dolores quidem eum voluptates eaque, optio.',
           },
         ],
       },

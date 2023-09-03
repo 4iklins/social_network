@@ -9,7 +9,7 @@ function App({ messagesPage, profilePage }: IState) {
   return (
     <div className={style.app}>
       <Header />
-      <Main />
+      <Main messagesPage={messagesPage} profilePage={profilePage} />
       <Footer />
     </div>
   );

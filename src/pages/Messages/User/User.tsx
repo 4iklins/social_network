@@ -1,17 +1,14 @@
 import style from './user.module.css';
 import UserPhoto from '../../../components/UserPhoto/UserPhoto';
 import { NavLink } from 'react-router-dom';
+import { UserType } from '../../../data/state';
 
-interface UserPropsType {
-  id: string;
-}
-
-const User = ({ id }: UserPropsType) => {
+const User = ({ id, name, avatar }: UserType) => {
   return (
     <li>
       <NavLink to={`/messages/${id}`} activeClassName={style.active} className={style.user}>
-        <UserPhoto />
-        <span className={style.name}>Andrei</span>
+        <UserPhoto avatar={avatar} />
+        <span className={style.name}>{name}</span>
       </NavLink>
     </li>
   );
