@@ -4,7 +4,7 @@ import Icon from '../Icon/Icon';
 const Logo = () => {
   return (
     <NavLink to='#'>
-      <Icon id='logo' color='#adf7b6' />
+      <Icon id='logo' color='#adf7b6' width='40' heigth='40' />
     </NavLink>
   );
 };

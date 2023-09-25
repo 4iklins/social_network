@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import Logo from '../../components/Logo/Logo';
 import style from './header.module.css';
-import Container from '../../components/Wrapper/Wrapper';
+import Wrapper from '../../components/Wrapper/Wrapper';
 import classNames from 'classnames';
 
 const headerMenu = ['profile', 'messages', 'users'];
@@ -9,7 +9,7 @@ const headerMenu = ['profile', 'messages', 'users'];
 const Header = () => {
   return (
     <header className={style.header}>
-      <Container>
+      <Wrapper>
         <div className={style.flexWrapper}>
           <Logo />
           <nav>
@@ -24,7 +24,7 @@ const Header = () => {
             </ul>
           </nav>
         </div>
-      </Container>
+      </Wrapper>
     </header>
   );
 };
