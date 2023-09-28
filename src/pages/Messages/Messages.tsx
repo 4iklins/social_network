@@ -5,7 +5,7 @@ import User from './User/User';
 import MessagesList from './MessagesList';
 import { MessagesPageType } from '../../data/state';
 
-const Messages = ({ users, newMessageText }: MessagesPageType) => {
+const Messages = ({ users, messages, newMessageText }: MessagesPageType) => {
   return (
     <section className={style.messages}>
       <div className={style.usersBlock}>
@@ -17,7 +17,7 @@ const Messages = ({ users, newMessageText }: MessagesPageType) => {
       </div>
       <div className={style.messagesWrapper}>
         <div className={style.messagesBlock}>
-          <MessagesList user={users[0]} />
+          <MessagesList messages={messages['0']}/>
         </div>
         <div className={style.sendMessage}>
           <InputField type='text' placeholder='Type your message' />
