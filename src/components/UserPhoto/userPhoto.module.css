@@ -2,15 +2,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
-  min-width: 40px;
   border-radius: 50%;
   background-color: var(--primary);
+  flex-shrink: 0;
 }
 
-.userPhoto img {
+.avatar {
+  display: block;
+  border-radius: 50%;
+}
+
+.small {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  
+}
+
+.large {
+  width: 100px;
+  height: 100px;
 }

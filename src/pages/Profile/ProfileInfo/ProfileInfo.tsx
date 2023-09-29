@@ -1,4 +1,5 @@
 import Icon from '../../../components/Icon/Icon';
+import UserPhoto from '../../../components/UserPhoto/UserPhoto';
 import style from './profileInfo.module.css';
 
 const ProfileInfo = () => {
@@ -6,7 +7,7 @@ const ProfileInfo = () => {
     <div className={style.profilInfo}>
       <div>
         <div className={style.photoWrapper}>
-          <Icon id='user' color='#181818' width='60' heigth='60' />
+          <UserPhoto avatar='' size='large' />
         </div>
       </div>
       <div className={style.description}>

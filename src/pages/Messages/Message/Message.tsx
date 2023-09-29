@@ -6,7 +6,7 @@ const Message = ({ avatar, isMe, message }: { avatar: string; isMe: boolean; mes
   return (
     <li className={cn(style.message, { [style.messageIsMe]: isMe })}>
       <div className={style.wrapper}>
-        <UserPhoto avatar={avatar} />
+        <UserPhoto avatar={avatar} size='small' />
         <div className={style.name}>Andrei</div>
       </div>
       <p className={style.text}>{message}</p>

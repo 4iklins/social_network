@@ -8,7 +8,7 @@ type PostPropsType = {
 const Post = (props: PostPropsType) => {
   return (
     <div className={style.post}>
-      <UserPhoto avatar='' />
+      <UserPhoto avatar='' size='small' />
       <div className={style.textBlock}>
         <div className={style.name}>Andrei</div>
         <p>{props.text}</p>

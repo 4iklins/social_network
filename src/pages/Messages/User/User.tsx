@@ -7,7 +7,7 @@ const User = ({ id, name, avatar }: UserType) => {
   return (
     <li>
       <NavLink to={`/messages/${id}`} activeClassName={style.active} className={style.user}>
-        <UserPhoto avatar={avatar} />
+        <UserPhoto avatar={avatar} size='small' />
         <span className={style.name}>{name}</span>
       </NavLink>
     </li>
