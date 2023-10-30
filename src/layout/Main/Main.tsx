@@ -1,24 +1,15 @@
 import style from './main.module.css';
 import Container from '../../components/Wrapper/Wrapper';
-import Profile from '../../pages/Profile/Profile';
-import Messages from '../../pages/Messages/Messages';
 import { Route } from 'react-router-dom';
-import { MessagesPageType } from '../../redux/messages-reducer';
-import { ProfilePageType } from '../../redux/profile-reducer';
-import { AppDispatch } from '../../redux/store';
+import MessagesContainer from '../../pages/Messages/MessagesContainer';
+import ProfileConainer from '../../pages/Profile/ProfileConainer';
 
-type AppProps = {
-  messagesPage: MessagesPageType;
-  profilePage: ProfilePageType;
-  dispatch: AppDispatch;
-};
-
-const Main = ({ messagesPage, profilePage, dispatch }: AppProps) => {
+const Main = () => {
   return (
     <main className={style.main}>
       <Container>
-        <Route path={`/profile`} render={() => <Profile {...profilePage} dispatch={dispatch} />} />
-        <Route path={`/messages`} render={() => <Messages {...messagesPage} />} />
+        <Route path={`/profile`} render={() => <ProfileConainer />} />
+        <Route path={`/messages`} render={() => <MessagesContainer />} />
       </Container>
     </main>
   );

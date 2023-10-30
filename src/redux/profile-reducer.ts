@@ -1,3 +1,5 @@
+import { idGen } from '../common/idForPost';
+
 export interface ProfilePageType {
   posts: PostType[];
   newPostText: string;
@@ -24,16 +26,16 @@ const initialState: ProfilePageType = {
 export type CreatePostAT = {
   type: 'CREATE-POST';
   postText: string;
+  id: number;
 };
 export type ActionsType = CreatePostAT;
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
   switch (action.type) {
     case 'CREATE-POST':
-      debugger;
       return {
         ...state,
-        posts: [{ id: 2, text: action.postText }, ...state.posts],
+        posts: [{ id: action.id, text: action.postText }, ...state.posts],
       };
     default:
       return state;
@@ -41,5 +43,5 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 };
 
 export const createPostAC = (postText: string): CreatePostAT => {
-  return { type: 'CREATE-POST', postText };
+  return { type: 'CREATE-POST', postText, id: idGen() } as const;
 };

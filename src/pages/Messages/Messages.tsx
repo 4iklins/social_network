@@ -3,9 +3,25 @@ import Button from '../../components/Button/Button';
 import style from './messages.module.css';
 import User from './User/User';
 import MessagesList from './MessagesList';
-import { MessagesPageType } from '../../data/state';
+import { MessagesPageType } from '../../redux/messages-reducer';
+import { Route } from 'react-router-dom';
+import { useRef } from 'react';
 
-const Messages = ({ users, messages, newMessageText }: MessagesPageType) => {
+export type MessageInputRef = HTMLInputElement;
+export interface MessagesPropsType extends MessagesPageType {
+  sendMessage: (messageText: string, dialogId: string) => void;
+  enterMessageText: (text: string) => void;
+}
+
+const Messages = ({ users, messages, newMessageText, enterMessageText, sendMessage }: MessagesPropsType) => {
+  const ref = useRef<MessageInputRef>(null);
+  const onInputChange = () => {
+    if (ref.current) enterMessageText(ref.current.value);
+  };
+  const onSendMessage = () => {
+    sendMessage(newMessageText, '0');
+  };
+
   return (
     <section className={style.messages}>
       <div className={style.usersBlock}>
@@ -15,15 +31,26 @@ const Messages = ({ users, messages, newMessageText }: MessagesPageType) => {
           ))}
         </ul>
       </div>
-      <div className={style.messagesWrapper}>
-        <div className={style.messagesBlock}>
-          <MessagesList messages={messages['0']}/>
-        </div>
-        <div className={style.sendMessage}>
-          <InputField type='text' placeholder='Type your message' />
-          <Button>Send</Button>
-        </div>
-      </div>
+      <Route
+        path='/:id'
+        render={() => (
+          <div className={style.messagesWrapper}>
+            <div className={style.messagesBlock}>
+              <MessagesList messages={messages['0']} />
+            </div>
+            <div className={style.sendMessage}>
+              <InputField
+                type='text'
+                placeholder='Type your message'
+                ref={ref}
+                onChange={onInputChange}
+                value={newMessageText}
+              />
+              <Button onClick={onSendMessage}>Send</Button>
+            </div>
+          </div>
+        )}
+      />
     </section>
   );
 };

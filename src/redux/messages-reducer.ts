@@ -24,6 +24,14 @@ export interface MessageType {
   message: string;
   avatar: string;
 }
+const avatars = {
+  ['0']: bakinovski,
+  ['1']: kiedis,
+  ['2']: '',
+  ['3']: flea,
+  ['4']: '',
+  ['5']: '',
+};
 
 const initialState: MessagesPageType = {
   users: [
@@ -113,18 +121,42 @@ const initialState: MessagesPageType = {
 export type SendMessageAT = {
   type: 'SEND-MESSAGE';
   messageText: string;
+  dialogId: string;
 };
-type ActionsType = SendMessageAT;
+export type EnterMessageTextAT = {
+  type: 'ENTER-MESSAGE-TEXT';
+  text: string;
+};
+type ActionsType = SendMessageAT | EnterMessageTextAT;
 
 export const messagesReducer = (state: MessagesPageType = initialState, action: ActionsType): MessagesPageType => {
   switch (action.type) {
+    case 'ENTER-MESSAGE-TEXT':
+      return { ...state, newMessageText: action.text };
     case 'SEND-MESSAGE':
-      return { ...state };
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          [action.dialogId]: [
+            ...state.messages[action.dialogId],
+            {
+              id: '3',
+              isMe: true,
+              message: action.messageText,
+              avatar: avatar,
+            },
+          ],
+        },
+      };
     default:
       return state;
   }
 };
 
-export const sendMessageAC = (messageText: string): SendMessageAT => {
-  return { type: 'SEND-MESSAGE', messageText };
+export const sendMessageAC = (messageText: string, dialogId: string): SendMessageAT => {
+  return { type: 'SEND-MESSAGE', messageText, dialogId };
+};
+export const enterMessageTextAC = (text: string): EnterMessageTextAT => {
+  return { type: 'ENTER-MESSAGE-TEXT', text };
 };

@@ -1,20 +1,17 @@
-import { ProfilePageType } from '../../data/state';
-import { PostType } from '../../redux/profile-reducer';
-import { AppDispatch } from '../../redux/store';
+import { ProfilePageType } from '../../redux/profile-reducer';
 import Posts from './Posts/Posts';
 import style from './profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-type ProfileProps = {
-  posts: PostType[];
-  newPostText: string;
-  dispatch: AppDispatch;
-};
 
-const Profile = ({ posts, newPostText, dispatch }: ProfileProps) => {
+interface ProfilePropsType extends ProfilePageType {
+  createPost: (postText: string) => void;
+}
+
+const Profile = ({ posts, createPost }: ProfilePropsType) => {
   return (
     <section className={style.profile}>
       <ProfileInfo />
-      <Posts posts={posts} dispatch={dispatch} />
+      <Posts posts={posts} createPost={createPost} />
     </section>
   );
 };
