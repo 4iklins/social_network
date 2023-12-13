@@ -1,11 +1,7 @@
-import { ProfilePageType } from '../../redux/profile-reducer';
 import Posts from './Posts/Posts';
 import style from './profile.module.css';
+import { ProfilePropsType } from './ProfileConainer';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-
-interface ProfilePropsType extends ProfilePageType {
-  createPost: (postText: string) => void;
-}
 
 const Profile = ({ posts, createPost }: ProfilePropsType) => {
   return (
