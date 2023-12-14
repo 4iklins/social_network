@@ -3,10 +3,11 @@ import style from './button.module.css';
 
 const Button = ({
   children,
+  className,
   ...props
 }: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => {
   return (
-    <button className={style.button} {...props}>
+    <button className={style.button + ' ' + className} {...props}>
       {children}
     </button>
   );

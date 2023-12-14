@@ -1,9 +1,9 @@
-import style from './user.module.css';
+import style from './mokuser.module.css';
 import UserPhoto from '../../../components/UserPhoto/UserPhoto';
 import { NavLink } from 'react-router-dom';
-import { UserType } from '../../../data/state';
+import { MokUserType } from '../../../redux/messages-reducer';
 
-const User = ({ id, name, avatar }: UserType) => {
+const MokUser = ({ id, name, avatar }: MokUserType) => {
   return (
     <li>
       <NavLink to={`/messages/${id}`} activeClassName={style.active} className={style.user}>
@@ -14,4 +14,4 @@ const User = ({ id, name, avatar }: UserType) => {
   );
 };
 
-export default User;
+export default MokUser;

@@ -1,7 +1,7 @@
 import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 import style from './messages.module.css';
-import User from './User/User';
+import MokUser from './MokUser/MokUser';
 import MessagesList from './MessagesList';
 import { MessagesPageType } from '../../redux/messages-reducer';
 import { Route } from 'react-router-dom';
@@ -27,12 +27,12 @@ const Messages = ({ users, messages, newMessageText, enterMessageText, sendMessa
       <div className={style.usersBlock}>
         <ul className={style.usersList}>
           {users.map(user => (
-            <User id={user.id} name={user.name} avatar={user.avatar} key={user.id} />
+            <MokUser id={user.id} name={user.name} avatar={user.avatar} key={user.id} />
           ))}
         </ul>
       </div>
       <Route
-        path='/:id'
+        path='/messages/:id'
         render={() => (
           <div className={style.messagesWrapper}>
             <div className={style.messagesBlock}>

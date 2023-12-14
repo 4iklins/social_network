@@ -3,7 +3,7 @@ import Icon from '../Icon/Icon';
 import style from './userPhoto.module.css';
 
 interface UserPhotoProps {
-  avatar: string;
+  avatar: string | null;
   size: 'small' | 'large';
 }
 const avatarSize = {

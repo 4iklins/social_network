@@ -18,7 +18,7 @@ export interface PostType {
 }
 
 export interface MessagesPageType {
-  users: UserType[];
+  users: MokUserType[];
   messages: MessagesType;
   newMessageText: string;
 }
@@ -26,7 +26,7 @@ export interface MessagesType {
   [key: string]: MessageType[];
 }
 
-export interface UserType {
+export interface MokUserType {
   id: string;
   name: string;
   avatar: string;

@@ -1,7 +1,7 @@
-import { message } from 'antd';
-import { MessageType, UserType } from '../../data/state';
+
 import Message from './Message/Message';
 import style from './messages.module.css';
+import { MessageType } from '../../redux/messages-reducer';
 
 const MessagesList = ({ messages }: { messages: MessageType[] }) => {
   return (

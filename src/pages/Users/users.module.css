@@ -1,0 +1,20 @@
+.users {
+  position: relative;
+}
+
+.usersList {
+  padding-top: 60px;
+  display: flex;
+  flex-direction: column;
+}
+.wrapper {
+  display: flex;
+  gap: 20px;
+}
+.searchBox {
+  background-color: rgba(10, 10, 10, 0.9);
+  position: fixed;
+  z-index: 1;
+  right: 0;
+  left: 0;
+}
