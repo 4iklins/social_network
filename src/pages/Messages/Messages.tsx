@@ -46,7 +46,9 @@ const Messages = ({ users, messages, newMessageText, enterMessageText, sendMessa
                 onChange={onInputChange}
                 value={newMessageText}
               />
-              <Button onClick={onSendMessage}>Send</Button>
+              <Button onClick={onSendMessage} color='secondary' size='large'>
+                Send
+              </Button>
             </div>
           </div>
         )}

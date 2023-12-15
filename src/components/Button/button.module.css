@@ -1,15 +1,33 @@
 .button {
-  padding: 16px 32px;
-  background-color: var(--bg-secondary);
-  color: var(--font-color);
-  font-size: 18px;
   font-weight: 600;
   font-family: var(--font-family);
   cursor: pointer;
   transition: 0.2s ease-in-out;
 }
 
-.button:hover {
+.primary {
   background-color: var(--primary);
   color: var(--bg-color);
+}
+
+.primary:hover {
+  background-color: var(--primary-dark);
+  color: var(--bg-color);
+}
+.secondary {
+  background-color: var(--bg-secondary);
+  color: var(--font-color);
+}
+.secondary:hover {
+  background-color: var(--primary);
+  color: var(--bg-color);
+}
+
+.small {
+  padding: 8px 16px;
+  font-size: 12px;
+}
+.large {
+  padding: 16px 32px;
+  font-size: 18px;
 }

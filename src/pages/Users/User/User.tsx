@@ -5,22 +5,27 @@ import { UserType } from '../../../redux/users-reducer';
 import Button from '../../../components/Button/Button';
 
 const User = (user: UserType) => {
+  const url = `/profile/${user.id}`;
   return (
     <div className={style.user}>
-      <NavLink to={`/profile/${user.id}`}>
+      <NavLink to={url}>
         <UserPhoto avatar={user.photos.small} size='large' />
       </NavLink>
       <div className={style.userDesc}>
-        <NavLink to={`/profile/${user.id}`} className={style.name}>
+        <NavLink to={url} className={style.name}>
           {user.name}
         </NavLink>
         <span>Status:{user.status}</span>
       </div>
       <div className={style.followBtns}>
         {user.followed ? (
-          <Button className={style.followBtn}>Unfollow</Button>
+          <Button color='secondary' size='small'>
+            Unfollow
+          </Button>
         ) : (
-          <Button className={style.followBtn}>Follow</Button>
+          <Button color='primary' size='small'>
+            Follow
+          </Button>
         )}
       </div>
     </div>

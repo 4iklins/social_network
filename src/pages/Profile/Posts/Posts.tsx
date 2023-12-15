@@ -24,7 +24,9 @@ const Posts = ({ posts, createPost }: PostPropsType) => {
     <div className={style.posts}>
       <div className={style.createPost}>
         <InputField type='text' placeholder='Type something...' value={postText} onChange={onInputCange} />
-        <Button onClick={onClickHandler}>Send</Button>
+        <Button onClick={onClickHandler} color='secondary' size='large'>
+          Send
+        </Button>
       </div>
       <div className={style.postsWrapper}>
         {posts.map(post => (

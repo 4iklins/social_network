@@ -1,13 +1,15 @@
 import { DetailedHTMLProps, ButtonHTMLAttributes } from 'react';
 import style from './button.module.css';
 
-const Button = ({
-  children,
-  className,
-  ...props
-}: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>) => {
+interface ButtonProps extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+  color: 'primary' | 'secondary';
+  size: 'small' | 'large';
+}
+
+const Button = ({ color, size, children, className, ...props }: ButtonProps) => {
+  const styles = style.button + ' ' + className + ' ' + style[color] + ' ' + style[size];
   return (
-    <button className={style.button + ' ' + className} {...props}>
+    <button className={styles} {...props}>
       {children}
     </button>
   );
