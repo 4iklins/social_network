@@ -31,3 +31,8 @@
   padding: 16px 32px;
   font-size: 18px;
 }
+
+.button:disabled {
+  background-color: var(--bg-secondary);
+  color: var(--font-secondary);
+}
