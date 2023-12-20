@@ -7,27 +7,11 @@ import User from './User/User';
 import { UsersPropsType } from './UsersContainer';
 import style from './users.module.css';
 import Pagination from '../../components/Pagination/Pagination';
-import { useEffect } from 'react';
 
-type UsersResponseType = {
-  error: string | null;
-  items: UserType[];
-  totalCount: number;
-};
+
 const Users = (props: UsersPropsType) => {
   const { users, currentPage, totalCount, itemsPerPage, setUsers, setTotalCount, setCurrentPage, setUsersPerPage } =
     props;
-
-  useEffect(() => {
-    axios
-      .get<UsersResponseType>(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${itemsPerPage}`
-      )
-      .then(res => {
-        setUsers(res.data.items);
-        setTotalCount(res.data.totalCount);
-      });
-  }, [currentPage, itemsPerPage]);
 
   return (
     <div className={style.users}>
@@ -49,7 +33,6 @@ const Users = (props: UsersPropsType) => {
         total={totalCount}
         current={currentPage}
         itemsCount={itemsPerPage}
-        setCount={setTotalCount}
         setCurrentPage={setCurrentPage}
         setItemsPerPage={setUsersPerPage}
       />

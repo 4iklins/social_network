@@ -9,6 +9,43 @@ import {
   setUsersAC,
   setUsersPerPAgeAC,
 } from '../../redux/users-reducer';
+import React from 'react';
+import axios from 'axios';
+
+type UsersResponseType = {
+  error: string | null;
+  items: UserType[];
+  totalCount: number;
+};
+
+class UsersContainer extends React.Component<UsersPropsType> {
+  componentDidMount(): void {
+    axios
+      .get<UsersResponseType>(
+        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.itemsPerPage}`
+      )
+      .then(res => {
+        this.props.setUsers(res.data.items);
+        this.props.setTotalCount(res.data.totalCount);
+      });
+  }
+  componentDidUpdate(prevProps: Readonly<UsersPropsType>): void {
+
+    if (this.props.currentPage !== prevProps.currentPage || this.props.itemsPerPage !== prevProps.itemsPerPage) {
+      axios
+        .get<UsersResponseType>(
+          `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.itemsPerPage}`
+        )
+        .then(res => {
+          this.props.setUsers(res.data.items);
+          this.props.setTotalCount(res.data.totalCount);
+        });
+    }
+  }
+  render() {
+    return <Users {...this.props} />;
+  }
+}
 
 export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType;
 
@@ -36,4 +73,4 @@ const mapDispatchToProps: mapDispatchToPropsType = {
   setUsersPerPage: setUsersPerPAgeAC,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

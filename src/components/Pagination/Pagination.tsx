@@ -7,7 +7,7 @@ interface PaginationProps extends DetailedHTMLProps<HtmlHTMLAttributes<HTMLDivEl
   total: number;
   current: number;
   itemsCount: itemsPerPageType;
-  setCount: (count: number) => void;
+
   setCurrentPage: (page: number) => void;
   setItemsPerPage: (count: itemsPerPageType) => void;
 }
@@ -18,7 +18,7 @@ const buttonsCount: number = 7;
 const layoutMaxCurrentPage: number = 4;
 
 const Pagination = (props: PaginationProps) => {
-  const { total, current, itemsCount, className, setCount, setCurrentPage, setItemsPerPage } = props;
+  const { total, current, itemsCount, className, setCurrentPage, setItemsPerPage } = props;
 
   const changeItemsCount = (evt: ChangeEvent<HTMLSelectElement>) => {
     debugger;
