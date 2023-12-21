@@ -1,8 +1,10 @@
 import { idGen } from '../common/idForPost';
+import { ProfileResponseType } from '../pages/Profile/ProfileConainer';
 
 export interface ProfilePageType {
   posts: PostType[];
   newPostText: string;
+  profile: ProfileResponseType | null;
 }
 export interface PostType {
   id: number;
@@ -21,14 +23,10 @@ const initialState: ProfilePageType = {
     },
   ],
   newPostText: '',
+  profile: null,
 };
 
-export type CreatePostAT = {
-  type: 'CREATE-POST';
-  postText: string;
-  id: number;
-};
-export type ActionsType = CreatePostAT;
+export type ActionsType = ReturnType<typeof createPostAC> | ReturnType<typeof setProfileAC>;
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
   switch (action.type) {
@@ -37,11 +35,16 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
         ...state,
         posts: [{ id: action.id, text: action.postText }, ...state.posts],
       };
+    case 'SET-PROFILE':
+      return { ...state, profile: action.profile };
     default:
       return state;
   }
 };
 
-export const createPostAC = (postText: string): CreatePostAT => {
+export const createPostAC = (postText: string) => {
   return { type: 'CREATE-POST', postText, id: idGen() } as const;
+};
+export const setProfileAC = (profile: ProfileResponseType) => {
+  return { type: 'SET-PROFILE', profile } as const;
 };

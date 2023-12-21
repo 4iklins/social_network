@@ -3,10 +3,10 @@ import style from './profile.module.css';
 import { ProfilePropsType } from './ProfileConainer';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
-const Profile = ({ posts, createPost }: ProfilePropsType) => {
+const Profile = ({ posts, profile, createPost }: ProfilePropsType) => {
   return (
     <section className={style.profile}>
-      <ProfileInfo />
+      {profile && <ProfileInfo {...profile} />}
       <Posts posts={posts} createPost={createPost} />
     </section>
   );

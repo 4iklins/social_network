@@ -1,17 +1,19 @@
 import Icon from '../../../components/Icon/Icon';
 import UserPhoto from '../../../components/UserPhoto/UserPhoto';
+import { ProfileResponseType } from '../ProfileConainer';
 import style from './profileInfo.module.css';
 
-const ProfileInfo = () => {
+
+const ProfileInfo = (profile: ProfileResponseType) => {
   return (
     <div className={style.profilInfo}>
       <div>
         <div className={style.photoWrapper}>
-          <UserPhoto avatar='' size='large' />
+          <UserPhoto avatar={profile.photos.small} size='large' />
         </div>
       </div>
       <div className={style.description}>
-        <div className={style.name}>Andrei</div>
+        <div className={style.name}>{profile.fullName}</div>
         <div className={style.status}>Status: bla bla </div>
       </div>
     </div>

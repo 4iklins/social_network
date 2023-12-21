@@ -7,7 +7,7 @@ import Button from '../../../components/Button/Button';
 const User = (user: UserType) => {
   const url = `/profile/${user.id}`;
   return (
-    <div className={style.user}>
+    <li className={style.user}>
       <NavLink to={url}>
         <UserPhoto avatar={user.photos.small} size='large' />
       </NavLink>
@@ -28,7 +28,7 @@ const User = (user: UserType) => {
           </Button>
         )}
       </div>
-    </div>
+    </li>
   );
 };
 

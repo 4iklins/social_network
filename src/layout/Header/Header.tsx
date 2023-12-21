@@ -3,10 +3,12 @@ import Logo from '../../components/Logo/Logo';
 import style from './header.module.css';
 import Wrapper from '../../components/Wrapper/Wrapper';
 import classNames from 'classnames';
+import LiearProgress from '../../components/LinearProgress/LinearProgress';
+import { HeaderPropsType } from './HeaderContainer';
 
 const headerMenu = ['profile', 'messages', 'users'];
 
-const Header = () => {
+const Header = (props: HeaderPropsType) => {
   return (
     <header className={style.header}>
       <Wrapper>
@@ -25,6 +27,7 @@ const Header = () => {
           </nav>
         </div>
       </Wrapper>
+      {props.status === 'loading' && <LiearProgress className={style.progress} />}
     </header>
   );
 };

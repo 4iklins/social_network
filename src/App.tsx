@@ -1,19 +1,16 @@
 import React from 'react';
 import style from './App.module.css';
-import Header from './layout/Header/Header';
 import Main from './layout/Main/Main';
 import Footer from './layout/Footer/Footer';
+import HeaderContainer from './layout/Header/HeaderContainer';
 
-
-type AppProps = {
-
-};
+type AppProps = {};
 
 function App({}: AppProps) {
   return (
     <div className={style.app}>
-      <Header />
-      <Main/>
+      <HeaderContainer />
+      <Main />
       <Footer />
     </div>
   );
