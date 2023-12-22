@@ -21,7 +21,6 @@ const Pagination = (props: PaginationProps) => {
   const { total, current, itemsCount, className, setCurrentPage, setItemsPerPage } = props;
 
   const changeItemsCount = (evt: ChangeEvent<HTMLSelectElement>) => {
-    debugger;
     setItemsPerPage(evt.currentTarget.value as itemsPerPageType);
   };
   const getPagesCount = (totalCount: number): number => Math.ceil(totalCount / +itemsCount);
@@ -59,7 +58,6 @@ const Pagination = (props: PaginationProps) => {
           : buttons.push(pages - (buttonsCount - i));
       }
     }
-    console.log(buttons);
     return buttons.map((page, i) =>
       typeof page === 'number' ? (
         <Button

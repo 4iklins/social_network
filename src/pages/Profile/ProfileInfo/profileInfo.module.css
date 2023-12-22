@@ -36,4 +36,6 @@
   line-height: 1.2;
   font-weight: 800;
   margin: 20px 0 15px;
+  word-wrap: break-word;
+  text-wrap: wrap;
 }

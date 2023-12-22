@@ -4,10 +4,11 @@ import { ProfilePropsType } from './ProfileConainer';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 const Profile = ({ posts, profile, createPost }: ProfilePropsType) => {
+  const myId = '21869';
   return (
     <section className={style.profile}>
       {profile && <ProfileInfo {...profile} />}
-      <Posts posts={posts} createPost={createPost} />
+      {profile && <Posts posts={posts} createPost={createPost} profile={profile} myId={myId} />}
     </section>
   );
 };

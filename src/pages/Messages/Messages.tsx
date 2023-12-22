@@ -3,23 +3,19 @@ import Button from '../../components/Button/Button';
 import style from './messages.module.css';
 import MokUser from './MokUser/MokUser';
 import MessagesList from './MessagesList';
-import { MessagesPageType } from '../../redux/messages-reducer';
 import { Route } from 'react-router-dom';
 import { useRef } from 'react';
+import { MessagesPropsType } from './MessagesContainer';
 
 export type MessageInputRef = HTMLInputElement;
-export interface MessagesPropsType extends MessagesPageType {
-  sendMessage: (messageText: string, dialogId: string) => void;
-  enterMessageText: (text: string) => void;
-}
 
-const Messages = ({ users, messages, newMessageText, enterMessageText, sendMessage }: MessagesPropsType) => {
+const Messages = ({ users, messages, newMessageText, match, enterMessageText, sendMessage }: MessagesPropsType) => {
   const ref = useRef<MessageInputRef>(null);
   const onInputChange = () => {
     if (ref.current) enterMessageText(ref.current.value);
   };
   const onSendMessage = () => {
-    sendMessage(newMessageText, '0');
+    sendMessage(newMessageText, match.params.id);
   };
 
   return (
@@ -36,7 +32,7 @@ const Messages = ({ users, messages, newMessageText, enterMessageText, sendMessa
         render={() => (
           <div className={style.messagesWrapper}>
             <div className={style.messagesBlock}>
-              <MessagesList messages={messages['0']} />
+              <MessagesList messages={messages[match.params.id]} />
             </div>
             <div className={style.sendMessage}>
               <InputField

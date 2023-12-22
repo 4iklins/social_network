@@ -15,3 +15,5 @@ export const store = createStore(rootReducer);
 
 export type AppDispatch = typeof store.dispatch;
 export type StateType = ReturnType<typeof rootReducer>;
+// @ts-ignore
+window.state = store.getState;

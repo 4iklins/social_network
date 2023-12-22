@@ -9,8 +9,8 @@ const Main = () => {
   return (
     <main className={style.main}>
       <Container>
-        <Route path={`/profile`} render={() => <ProfileConainer />} />
-        <Route path={`/messages`} render={() => <MessagesContainer />} />
+        <Route path={`/profile/:id?`} render={() => <ProfileConainer />} />
+        <Route path={`/messages/:id?`} render={() => <MessagesContainer />} />
         <Route path={'/users'} render={() => <UsersContainer />} />
       </Container>
     </main>

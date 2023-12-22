@@ -1,4 +1,3 @@
-
 import Message from './Message/Message';
 import style from './messages.module.css';
 import { MessageType } from '../../redux/messages-reducer';

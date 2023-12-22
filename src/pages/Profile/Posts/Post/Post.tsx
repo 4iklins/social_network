@@ -3,14 +3,16 @@ import style from './post.module.css';
 
 type PostPropsType = {
   text: string;
+  userPhoto: string | null;
+  userName: string;
 };
 
 const Post = (props: PostPropsType) => {
   return (
     <div className={style.post}>
-      <UserPhoto avatar='' size='small' />
+      <UserPhoto avatar={props.userPhoto} size='small' />
       <div className={style.textBlock}>
-        <div className={style.name}>Andrei</div>
+        <div className={style.name}>{props.userName}</div>
         <p>{props.text}</p>
       </div>
     </div>
