@@ -1,18 +1,18 @@
 import { ChangeEvent, DetailedHTMLProps, HtmlHTMLAttributes, useState } from 'react';
 import style from './pagination.module.css';
 import Button from '../Button/Button';
-import { itemsPerPageType } from '../../redux/users-reducer';
+import { ItemsPerPageType } from '../../redux/users-reducer';
 
 interface PaginationProps extends DetailedHTMLProps<HtmlHTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   total: number;
   current: number;
-  itemsCount: itemsPerPageType;
+  itemsCount: ItemsPerPageType;
 
   setCurrentPage: (page: number) => void;
-  setItemsPerPage: (count: itemsPerPageType) => void;
+  setItemsPerPage: (count: ItemsPerPageType) => void;
 }
 
-const option: itemsPerPageType[] = ['10', '20', '50', '100'];
+const option: ItemsPerPageType[] = ['10', '20', '50', '100'];
 const firstPage = 1;
 const buttonsCount: number = 7;
 const layoutMaxCurrentPage: number = 4;
@@ -21,7 +21,7 @@ const Pagination = (props: PaginationProps) => {
   const { total, current, itemsCount, className, setCurrentPage, setItemsPerPage } = props;
 
   const changeItemsCount = (evt: ChangeEvent<HTMLSelectElement>) => {
-    setItemsPerPage(evt.currentTarget.value as itemsPerPageType);
+    setItemsPerPage(evt.currentTarget.value as ItemsPerPageType);
   };
   const getPagesCount = (totalCount: number): number => Math.ceil(totalCount / +itemsCount);
 

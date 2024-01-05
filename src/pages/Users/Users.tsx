@@ -2,7 +2,6 @@ import axios from 'axios';
 import Button from '../../components/Button/Button';
 import InputField from '../../components/InputField/InputField';
 import Wrapper from '../../components/Wrapper/Wrapper';
-import { UserType } from '../../redux/users-reducer';
 import User from './User/User';
 import { UsersPropsType } from './UsersContainer';
 import style from './users.module.css';

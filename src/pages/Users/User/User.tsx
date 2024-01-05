@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import style from './user.module.css';
 import UserPhoto from '../../../components/UserPhoto/UserPhoto';
-import { UserType } from '../../../redux/users-reducer';
 import Button from '../../../components/Button/Button';
+import { UserType } from '../../../api/users-api';
 
 const User = (user: UserType) => {
   const url = `/profile/${user.id}`;

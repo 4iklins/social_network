@@ -2,8 +2,7 @@ import { connect } from 'react-redux';
 import Users from './Users';
 import { StateType } from '../../redux/store';
 import {
-  UserType,
-  itemsPerPageType,
+  ItemsPerPageType,
   setCurrentPageAC,
   setTotalCountAC,
   setUsersAC,
@@ -12,38 +11,25 @@ import {
 import React from 'react';
 import axios from 'axios';
 import { RequestStatusType, setAppStatusAC } from '../../redux/app-reducer';
-
-type UsersResponseType = {
-  error: string | null;
-  items: UserType[];
-  totalCount: number;
-};
+import { UserType, UsersResponseType, usersAPI } from '../../api/users-api';
 
 class UsersContainer extends React.Component<UsersPropsType> {
   componentDidMount(): void {
     this.props.setAppStatus('loading');
-    axios
-      .get<UsersResponseType>(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.itemsPerPage}`
-      )
-      .then(res => {
-        this.props.setUsers(res.data.items);
-        this.props.setTotalCount(res.data.totalCount);
-        this.props.setAppStatus('succeeded');
-      });
+    usersAPI.getUsers(`?page=${this.props.currentPage}&count=${this.props.itemsPerPage}`).then(res => {
+      this.props.setUsers(res.data.items);
+      this.props.setTotalCount(res.data.totalCount);
+      this.props.setAppStatus('succeeded');
+    });
   }
   componentDidUpdate(prevProps: Readonly<UsersPropsType>): void {
     if (this.props.currentPage !== prevProps.currentPage || this.props.itemsPerPage !== prevProps.itemsPerPage) {
       this.props.setAppStatus('loading');
-      axios
-        .get<UsersResponseType>(
-          `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.itemsPerPage}`
-        )
-        .then(res => {
-          this.props.setUsers(res.data.items);
-          this.props.setTotalCount(res.data.totalCount);
-          this.props.setAppStatus('succeeded');
-        });
+      usersAPI.getUsers(`?page=${this.props.currentPage}&count=${this.props.itemsPerPage}`).then(res => {
+        this.props.setUsers(res.data.items);
+        this.props.setTotalCount(res.data.totalCount);
+        this.props.setAppStatus('succeeded');
+      });
     }
   }
   render() {
@@ -58,7 +44,7 @@ type mapDispatchToPropsType = {
   setUsers: (users: UserType[]) => void;
   setTotalCount: (count: number) => void;
   setCurrentPage: (page: number) => void;
-  setUsersPerPage: (count: itemsPerPageType) => void;
+  setUsersPerPage: (count: ItemsPerPageType) => void;
   setAppStatus: (status: RequestStatusType) => void;
 };
 

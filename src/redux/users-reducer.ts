@@ -1,23 +1,14 @@
+import { UserType } from '../api/users-api';
+
 export type UsersPageType = {
   users: UserType[];
   totalCount: number;
   currentPage: number;
-  itemsPerPage: itemsPerPageType;
+  itemsPerPage: ItemsPerPageType;
 };
 
-export type itemsPerPageType = '10' | '20' | '50' | '100';
+export type ItemsPerPageType = '10' | '20' | '50' | '100';
 
-export type UserType = {
-  name: string;
-  id: number;
-  uniqueUrlName: string | null;
-  photos: {
-    small: string | null;
-    large: string | null;
-  };
-  status: string | null;
-  followed: boolean;
-};
 
 type ActionType =
   | ReturnType<typeof setUsersAC>
@@ -57,7 +48,7 @@ export const setCurrentPageAC = (page: number) => {
   return { type: 'SET-CURRENT-PAGE', page } as const;
 };
 
-export const setUsersPerPAgeAC = (count: itemsPerPageType) => {
+export const setUsersPerPAgeAC = (count: ItemsPerPageType) => {
   return { type: 'SET-USERS-PER-PAGE', count } as const;
 };
 
