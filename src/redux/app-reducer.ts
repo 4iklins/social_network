@@ -5,8 +5,8 @@ export type RequestStatusType = 'loading' | 'succeeded' | 'failed';
 const initialState = {
   status: 'succeeded' as RequestStatusType,
 };
-type ActionType = ReturnType<typeof setAppStatusAC>;
-const appReducer = (state = initialState, action: ActionType): AppStateType => {
+type ActionsType = ReturnType<typeof setAppStatusAC>;
+const appReducer = (state = initialState, action: ActionsType): AppStateType => {
   switch (action.type) {
     case 'SET-APP-STATUS':
       return { ...state, status: action.status };

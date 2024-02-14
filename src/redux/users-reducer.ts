@@ -9,12 +9,13 @@ export type UsersPageType = {
 
 export type ItemsPerPageType = '10' | '20' | '50' | '100';
 
-
-type ActionType =
+type ActionsType =
   | ReturnType<typeof setUsersAC>
   | ReturnType<typeof setTotalCountAC>
   | ReturnType<typeof setCurrentPageAC>
-  | ReturnType<typeof setUsersPerPAgeAC>;
+  | ReturnType<typeof setUsersPerPAgeAC>
+  | ReturnType<typeof followUserAC>
+  | ReturnType<typeof unfollowUserAC>;
 
 const initialState: UsersPageType = {
   users: [],
@@ -23,7 +24,7 @@ const initialState: UsersPageType = {
   itemsPerPage: '10',
 };
 
-const usersReducer = (state = initialState, action: ActionType): UsersPageType => {
+const usersReducer = (state = initialState, action: ActionsType): UsersPageType => {
   switch (action.type) {
     case 'SET-USERS':
       return { ...state, users: action.users };
@@ -33,6 +34,16 @@ const usersReducer = (state = initialState, action: ActionType): UsersPageType =
       return { ...state, currentPage: action.page };
     case 'SET-USERS-PER-PAGE':
       return { ...state, itemsPerPage: action.count };
+    case 'FOLLOW-USER':
+      return {
+        ...state,
+        users: state.users.map(user => (user.id === action.userId ? { ...user, followed: true } : user)),
+      };
+    case 'UNFOLLOW-USER':
+      return {
+        ...state,
+        users: state.users.map(user => (user.id === action.userId ? { ...user, followed: false } : user)),
+      };
     default:
       return state;
   }
@@ -52,4 +63,11 @@ export const setUsersPerPAgeAC = (count: ItemsPerPageType) => {
   return { type: 'SET-USERS-PER-PAGE', count } as const;
 };
 
+export const followUserAC = (userId: number) => {
+  return { type: 'FOLLOW-USER', userId } as const;
+};
+
+export const unfollowUserAC = (userId: number) => {
+  return { type: 'UNFOLLOW-USER', userId } as const;
+};
 export default usersReducer;

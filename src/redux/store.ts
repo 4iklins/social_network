@@ -3,7 +3,8 @@ import { profileReducer } from './profile-reducer';
 import { messagesReducer } from './messages-reducer';
 import usersReducer from './users-reducer';
 import appReducer from './app-reducer';
-import authReducer from './auth-regucer';
+import authReducer from './auth-reducer';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 const rootReducer = combineReducers({
   profilePage: profileReducer,

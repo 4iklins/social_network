@@ -1,4 +1,4 @@
-import { instance } from './instance';
+import { ResponseType, instance } from './instance';
 
 export type UserType = {
   name: string;
@@ -20,5 +20,11 @@ export type UsersResponseType = {
 export const usersAPI = {
   getUsers(url: string) {
     return instance.get<UsersResponseType>('/users' + url);
+  },
+  followUser(userId: string) {
+    return instance.post<ResponseType>(`/follow/${userId}`);
+  },
+  unfollowUser(userId: number) {
+    return instance.delete<ResponseType>(`/follow/${userId}`);
   },
 };

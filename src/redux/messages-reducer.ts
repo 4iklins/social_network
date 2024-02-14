@@ -118,16 +118,7 @@ const initialState: MessagesPageType = {
   newMessageText: '',
 };
 
-export type SendMessageAT = {
-  type: 'SEND-MESSAGE';
-  messageText: string;
-  dialogId: string;
-};
-export type EnterMessageTextAT = {
-  type: 'ENTER-MESSAGE-TEXT';
-  text: string;
-};
-type ActionsType = SendMessageAT | EnterMessageTextAT;
+type ActionsType = ReturnType<typeof sendMessageAC> | ReturnType<typeof enterMessageTextAC>;
 
 export const messagesReducer = (state: MessagesPageType = initialState, action: ActionsType): MessagesPageType => {
   switch (action.type) {
@@ -154,9 +145,9 @@ export const messagesReducer = (state: MessagesPageType = initialState, action: 
   }
 };
 
-export const sendMessageAC = (messageText: string, dialogId: string): SendMessageAT => {
-  return { type: 'SEND-MESSAGE', messageText, dialogId };
+export const sendMessageAC = (messageText: string, dialogId: string) => {
+  return { type: 'SEND-MESSAGE', messageText, dialogId } as const;
 };
-export const enterMessageTextAC = (text: string): EnterMessageTextAT => {
-  return { type: 'ENTER-MESSAGE-TEXT', text };
+export const enterMessageTextAC = (text: string) => {
+  return { type: 'ENTER-MESSAGE-TEXT', text } as const;
 };

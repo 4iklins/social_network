@@ -7,10 +7,19 @@ import { UsersPropsType } from './UsersContainer';
 import style from './users.module.css';
 import Pagination from '../../components/Pagination/Pagination';
 
-
 const Users = (props: UsersPropsType) => {
-  const { users, currentPage, totalCount, itemsPerPage, setUsers, setTotalCount, setCurrentPage, setUsersPerPage } =
-    props;
+  const {
+    users,
+    currentPage,
+    totalCount,
+    itemsPerPage,
+    setUsers,
+    setTotalCount,
+    setCurrentPage,
+    setUsersPerPage,
+    follow,
+    unfollow,
+  } = props;
 
   return (
     <div className={style.users}>
@@ -25,7 +34,7 @@ const Users = (props: UsersPropsType) => {
 
       <ul className={style.usersList}>
         {users.map(user => (
-          <User {...user} key={user.id} />
+          <User {...user} key={user.id} follow={follow} unfollow={unfollow} />
         ))}
       </ul>
       <Pagination

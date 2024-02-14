@@ -3,10 +3,12 @@ import Users from './Users';
 import { StateType } from '../../redux/store';
 import {
   ItemsPerPageType,
+  followUserAC,
   setCurrentPageAC,
   setTotalCountAC,
   setUsersAC,
   setUsersPerPAgeAC,
+  unfollowUserAC,
 } from '../../redux/users-reducer';
 import React from 'react';
 import axios from 'axios';
@@ -46,6 +48,8 @@ type mapDispatchToPropsType = {
   setCurrentPage: (page: number) => void;
   setUsersPerPage: (count: ItemsPerPageType) => void;
   setAppStatus: (status: RequestStatusType) => void;
+  follow: (userId: number) => void;
+  unfollow: (userId: number) => void;
 };
 
 const mapStateToProps = (state: StateType) => {
@@ -63,6 +67,8 @@ const mapDispatchToProps: mapDispatchToPropsType = {
   setCurrentPage: setCurrentPageAC,
   setUsersPerPage: setUsersPerPAgeAC,
   setAppStatus: setAppStatusAC,
+  follow: followUserAC,
+  unfollow: unfollowUserAC,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);

@@ -5,12 +5,11 @@ import Footer from './layout/Footer/Footer';
 import HeaderContainer from './layout/Header/HeaderContainer';
 import { autAPI } from './api/auth-api';
 import { useDispatch } from 'react-redux';
-import { authMeAC } from './redux/auth-regucer';
+import { authMeAC } from './redux/auth-reducer';
 
 type AppProps = {};
 
 function App({}: AppProps) {
-
   const dispatch = useDispatch();
   useEffect(() => {
     autAPI.me().then(res => {
