@@ -2,11 +2,13 @@ import { NavLink } from 'react-router-dom';
 import style from './user.module.css';
 import UserPhoto from '../../../components/UserPhoto/UserPhoto';
 import Button from '../../../components/Button/Button';
-import { UserType } from '../../../api/users-api';
+import { usersAPI } from '../../../api/users-api';
+import { ResultCode } from '../../../api/instance';
+import { UserDomainType } from '../../../redux/users-reducer';
 
-type UserProps = UserType & {
-  follow: (userId: number) => void;
-  unfollow: (userId: number) => void;
+type UserProps = UserDomainType & {
+  followToggle: (userId: number, follow: boolean) => void;
+  setFollowingInProgress: (userId: number, inProgress: boolean) => void;
 };
 const User = (user: UserProps) => {
   const url = `/profile/${user.id}`;
@@ -23,11 +25,23 @@ const User = (user: UserProps) => {
       </div>
       <div className={style.followBtns}>
         {user.followed ? (
-          <Button color='secondary' size='small' onClick={() => user.unfollow(user.id)}>
+          <Button
+            color='secondary'
+            size='small'
+            onClick={() => {
+              user.followToggle(user.id, false);
+            }}
+            disabled={user.followingProgress}>
             Unfollow
           </Button>
         ) : (
-          <Button color='primary' size='small' onClick={() => user.follow(user.id)}>
+          <Button
+            color='primary'
+            size='small'
+            onClick={() => {
+              user.followToggle(user.id, true);
+            }}
+            disabled={user.followingProgress}>
             Follow
           </Button>
         )}

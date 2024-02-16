@@ -3,54 +3,45 @@ import Users from './Users';
 import { StateType } from '../../redux/store';
 import {
   ItemsPerPageType,
-  followUserAC,
+  followToggleTC,
+  getUsersTC,
+  searchUserAC,
   setCurrentPageAC,
+  setFollowingInProgressAC,
   setTotalCountAC,
-  setUsersAC,
   setUsersPerPAgeAC,
-  unfollowUserAC,
 } from '../../redux/users-reducer';
 import React from 'react';
-import axios from 'axios';
-import { RequestStatusType, setAppStatusAC } from '../../redux/app-reducer';
-import { UserType, UsersResponseType, usersAPI } from '../../api/users-api';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 class UsersContainer extends React.Component<UsersPropsType> {
   componentDidMount(): void {
-    this.props.setAppStatus('loading');
-    usersAPI.getUsers(`?page=${this.props.currentPage}&count=${this.props.itemsPerPage}`).then(res => {
-      this.props.setUsers(res.data.items);
-      this.props.setTotalCount(res.data.totalCount);
-      this.props.setAppStatus('succeeded');
-    });
+    this.props.getUsers(`?page=${this.props.currentPage}&count=${this.props.itemsPerPage}`);
   }
   componentDidUpdate(prevProps: Readonly<UsersPropsType>): void {
     if (this.props.currentPage !== prevProps.currentPage || this.props.itemsPerPage !== prevProps.itemsPerPage) {
-      this.props.setAppStatus('loading');
-      usersAPI.getUsers(`?page=${this.props.currentPage}&count=${this.props.itemsPerPage}`).then(res => {
-        this.props.setUsers(res.data.items);
-        this.props.setTotalCount(res.data.totalCount);
-        this.props.setAppStatus('succeeded');
-      });
+      let url = `?page=${this.props.currentPage}&count=${this.props.itemsPerPage}`;
+      if (this.props.searchUser) {
+        url = `${url}&term=${this.props.searchUser}`;
+      }
+      this.props.getUsers(url);
     }
+  }
+  componentWillUnmount(): void {
+    this.props.setSearchUser('');
   }
   render() {
     return <Users {...this.props} />;
   }
 }
 
-export type UsersPropsType = mapStateToPropsType & mapDispatchToPropsType;
+export type OwnPropsType = mapStateToPropsType & mapDispatchToPropsType;
+export type UsersPropsType = RouteComponentProps & OwnPropsType;
 
 type mapStateToPropsType = ReturnType<typeof mapStateToProps>;
-type mapDispatchToPropsType = {
-  setUsers: (users: UserType[]) => void;
-  setTotalCount: (count: number) => void;
-  setCurrentPage: (page: number) => void;
-  setUsersPerPage: (count: ItemsPerPageType) => void;
-  setAppStatus: (status: RequestStatusType) => void;
-  follow: (userId: number) => void;
-  unfollow: (userId: number) => void;
-};
+type mapDispatchToPropsType = ReturnType<typeof mapDispatchToProps>;
 
 const mapStateToProps = (state: StateType) => {
   return {
@@ -58,17 +49,21 @@ const mapStateToProps = (state: StateType) => {
     totalCount: state.usersPage.totalCount,
     currentPage: state.usersPage.currentPage,
     itemsPerPage: state.usersPage.itemsPerPage,
+    searchUser: state.usersPage.searchUser,
   };
 };
 
-const mapDispatchToProps: mapDispatchToPropsType = {
-  setUsers: setUsersAC,
-  setTotalCount: setTotalCountAC,
-  setCurrentPage: setCurrentPageAC,
-  setUsersPerPage: setUsersPerPAgeAC,
-  setAppStatus: setAppStatusAC,
-  follow: followUserAC,
-  unfollow: unfollowUserAC,
+const mapDispatchToProps = (dispatch: ThunkDispatch<StateType, unknown, AnyAction>) => {
+  return {
+    getUsers: (url: string) => dispatch(getUsersTC(url)),
+    setTotalCount: (count: number) => dispatch(setTotalCountAC(count)),
+    setCurrentPage: (page: number) => dispatch(setCurrentPageAC(page)),
+    setUsersPerPage: (count: ItemsPerPageType) => dispatch(setUsersPerPAgeAC(count)),
+    followToggle: (userId: number, follow: boolean) => dispatch(followToggleTC(userId, follow)),
+    setSearchUser: (search: string) => dispatch(searchUserAC(search)),
+    setFollowingInProgress: (userId: number, inProgress: boolean) =>
+      dispatch(setFollowingInProgressAC(userId, inProgress)),
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(UsersContainer));

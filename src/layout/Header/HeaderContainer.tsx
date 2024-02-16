@@ -12,6 +12,7 @@ export type HeaderPropsType = mapStateToPropsType & mapDispatchToPropsType;
 const mapStateToProps = (state: StateType) => {
   return {
     status: state.app.status,
+    myData: state.auth.myAuthData
   };
 };
 

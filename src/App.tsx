@@ -3,28 +3,28 @@ import style from './App.module.css';
 import Main from './layout/Main/Main';
 import Footer from './layout/Footer/Footer';
 import HeaderContainer from './layout/Header/HeaderContainer';
-import { autAPI } from './api/auth-api';
-import { useDispatch } from 'react-redux';
-import { authMeAC } from './redux/auth-reducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { setInitializedTC } from './redux/app-reducer';
+import { StateType } from './redux/store';
+import LiearProgress from './components/LinearProgress/LinearProgress';
 
 type AppProps = {};
 
 function App({}: AppProps) {
+  const isInitialized = useSelector<StateType, boolean>(state => state.app.initialized);
   const dispatch = useDispatch();
   useEffect(() => {
-    autAPI.me().then(res => {
-      if (res.data.resultCode === 0) {
-        dispatch(authMeAC(true));
-      }
-    });
+    dispatch(setInitializedTC());
   }, []);
 
-  return (
+  return isInitialized ? (
     <div className={style.app}>
       <HeaderContainer />
       <Main />
       <Footer />
     </div>
+  ) : (
+    <LiearProgress />
   );
 }
 

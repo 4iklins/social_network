@@ -5,6 +5,7 @@ import Wrapper from '../../components/Wrapper/Wrapper';
 import classNames from 'classnames';
 import LiearProgress from '../../components/LinearProgress/LinearProgress';
 import { HeaderPropsType } from './HeaderContainer';
+import { match } from 'assert';
 
 const headerMenu = ['profile', 'messages', 'users'];
 
@@ -18,7 +19,12 @@ const Header = (props: HeaderPropsType) => {
             <ul className={style.menuList}>
               {headerMenu.map(menuItem => (
                 <li key={menuItem} className={classNames(style.menuItem)}>
-                  <NavLink to={`/${menuItem}`} activeClassName={style.active}>
+                  <NavLink
+                    to={`/${menuItem === 'profile' ? `${menuItem}/${props.myData.id}` : menuItem}`}
+                    isActive={(match, location) => {
+                      return location.pathname.includes(menuItem) ? true : false;
+                    }}
+                    activeClassName={style.active}>
                     <span>{menuItem}</span>
                   </NavLink>
                 </li>

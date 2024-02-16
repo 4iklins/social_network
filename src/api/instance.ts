@@ -6,7 +6,13 @@ export const instance = axios.create({
 });
 
 export type ResponseType<T = {}> = {
-  resultCode: number;
+  resultCode: ResultCode;
   messages: string[];
   data: T;
 };
+
+export enum ResultCode {
+  succes = 0,
+  fail = 1,
+  captcha = 10,
+}

@@ -21,7 +21,7 @@ export const usersAPI = {
   getUsers(url: string) {
     return instance.get<UsersResponseType>('/users' + url);
   },
-  followUser(userId: string) {
+  followUser(userId: number) {
     return instance.post<ResponseType>(`/follow/${userId}`);
   },
   unfollowUser(userId: number) {

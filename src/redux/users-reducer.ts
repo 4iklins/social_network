@@ -1,10 +1,18 @@
-import { UserType } from '../api/users-api';
+import { Dispatch } from 'redux';
+import { UserType, usersAPI } from '../api/users-api';
+import { setAppStatusAC } from './app-reducer';
+import { AppThunk } from './store';
+import { ResultCode } from '../api/instance';
 
 export type UsersPageType = {
-  users: UserType[];
+  users: UserDomainType[];
   totalCount: number;
   currentPage: number;
   itemsPerPage: ItemsPerPageType;
+  searchUser: string;
+};
+export type UserDomainType = UserType & {
+  followingProgress: boolean;
 };
 
 export type ItemsPerPageType = '10' | '20' | '50' | '100';
@@ -14,40 +22,69 @@ type ActionsType =
   | ReturnType<typeof setTotalCountAC>
   | ReturnType<typeof setCurrentPageAC>
   | ReturnType<typeof setUsersPerPAgeAC>
-  | ReturnType<typeof followUserAC>
-  | ReturnType<typeof unfollowUserAC>;
+  | ReturnType<typeof followToggleUserAC>
+  | ReturnType<typeof searchUserAC>
+  | ReturnType<typeof setFollowingInProgressAC>;
 
 const initialState: UsersPageType = {
   users: [],
   totalCount: 0,
   currentPage: 1,
   itemsPerPage: '10',
+  searchUser: '',
 };
 
 const usersReducer = (state = initialState, action: ActionsType): UsersPageType => {
   switch (action.type) {
     case 'SET-USERS':
-      return { ...state, users: action.users };
+      return { ...state, users: action.users.map(u => ({ ...u, followingProgress: false })) };
     case 'SET-TOTAL-COUNT':
       return { ...state, totalCount: action.count };
     case 'SET-CURRENT-PAGE':
       return { ...state, currentPage: action.page };
     case 'SET-USERS-PER-PAGE':
       return { ...state, itemsPerPage: action.count };
-    case 'FOLLOW-USER':
+    case 'FOLLOW-UNFOLLOW-USER':
       return {
         ...state,
-        users: state.users.map(user => (user.id === action.userId ? { ...user, followed: true } : user)),
+        users: state.users.map(user => (user.id === action.userId ? { ...user, followed: action.follow } : user)),
       };
-    case 'UNFOLLOW-USER':
+    case 'SEARCH-USER':
       return {
         ...state,
-        users: state.users.map(user => (user.id === action.userId ? { ...user, followed: false } : user)),
+        searchUser: action.search,
+      };
+    case 'SET-FOLLOWING-IN-PROGRESS':
+      return {
+        ...state,
+        users: state.users.map(u => (u.id === action.userId ? { ...u, followingProgress: action.inProgress } : u)),
       };
     default:
       return state;
   }
 };
+
+export const getUsersTC = (url: string) => (dispatch: Dispatch) => {
+  dispatch(setAppStatusAC('loading'));
+  return usersAPI.getUsers(url).then(res => {
+    dispatch(setUsersAC(res.data.items));
+    dispatch(setTotalCountAC(res.data.totalCount));
+    dispatch(setAppStatusAC('succeeded'));
+  });
+};
+export const followToggleTC =
+  (userId: number, follow: boolean): AppThunk =>
+  dispatch => {
+    dispatch(setFollowingInProgressAC(userId, true));
+    const followed = follow ? usersAPI.followUser : usersAPI.unfollowUser;
+    debugger;
+    followed(userId).then(res => {
+      if (res.data.resultCode === ResultCode.succes) {
+        dispatch(followToggleUserAC(userId, follow));
+        dispatch(setFollowingInProgressAC(userId, false));
+      }
+    });
+  };
 
 export const setUsersAC = (users: UserType[]) => {
   return { type: 'SET-USERS', users } as const;
@@ -63,11 +100,15 @@ export const setUsersPerPAgeAC = (count: ItemsPerPageType) => {
   return { type: 'SET-USERS-PER-PAGE', count } as const;
 };
 
-export const followUserAC = (userId: number) => {
-  return { type: 'FOLLOW-USER', userId } as const;
+export const followToggleUserAC = (userId: number, follow: boolean) => {
+  return { type: 'FOLLOW-UNFOLLOW-USER', userId, follow } as const;
 };
 
-export const unfollowUserAC = (userId: number) => {
-  return { type: 'UNFOLLOW-USER', userId } as const;
+export const searchUserAC = (search: string) => {
+  return { type: 'SEARCH-USER', search } as const;
+};
+
+export const setFollowingInProgressAC = (userId: number, inProgress: boolean) => {
+  return { type: 'SET-FOLLOWING-IN-PROGRESS', userId, inProgress } as const;
 };
 export default usersReducer;

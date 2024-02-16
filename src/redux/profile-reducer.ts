@@ -1,5 +1,8 @@
+import { profileAPI } from '../api/profile-api';
 import { idGen } from '../common/idForPost';
 import { ProfileResponseType } from '../pages/Profile/ProfileConainer';
+import { setAppStatusAC } from './app-reducer';
+import { AppThunk } from './store';
 
 export interface ProfilePageType {
   posts: PostType[];
@@ -41,6 +44,16 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
       return state;
   }
 };
+
+export const getProfileTC =
+  (userId: string): AppThunk =>
+  dispatch => {
+    dispatch(setAppStatusAC('loading'));
+    profileAPI.getProfile(userId).then(res => {
+      dispatch(setProfileAC(res.data));
+      dispatch(setAppStatusAC('succeeded'));
+    });
+  };
 
 export const createPostAC = (postText: string) => {
   return { type: 'CREATE-POST', postText, id: idGen() } as const;

@@ -1,11 +1,13 @@
 import { connect } from 'react-redux';
 import Profile from './Profile';
 import { StateType } from '../../redux/store';
-import { ProfilePageType, createPostAC, setProfileAC } from '../../redux/profile-reducer';
+import { ProfilePageType, createPostAC, getProfileTC } from '../../redux/profile-reducer';
 import React from 'react';
 import axios from 'axios';
 import { RequestStatusType, setAppStatusAC } from '../../redux/app-reducer';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
 
 export type ProfileResponseType = {
   aboutMe: string | null;
@@ -31,13 +33,13 @@ export type ProfileResponseType = {
 class ProfileContainer extends React.Component<ProfilePropsType> {
   componentDidMount(): void {
     let id = this.props.match.params.id;
-    const myId = '21869';
-    if (!id) id = myId;
-    this.props.setAppStatus('loading');
-    axios.get<ProfileResponseType>(`https://social-network.samuraijs.com/api/1.0/profile/${id}`).then(res => {
-      this.props.setProfile(res.data);
-      this.props.setAppStatus('succeeded');
-    });
+    this.props.getProfile(id);
+  }
+  componentDidUpdate(prevProps: Readonly<ProfilePropsType>, prevState: Readonly<{}>, snapshot?: any): void {
+    let id = this.props.match.params.id;
+    if (prevProps.match.params.id !== id) {
+      this.props.getProfile(id);
+    }
   }
 
   render() {
@@ -49,11 +51,7 @@ type PathParamsType = {
   id: string;
 };
 type mapStateToPropsType = ReturnType<typeof mapStateToProps>;
-type mapDispatchToPropsType = {
-  createPost: (postText: string) => void;
-  setProfile: (profile: ProfileResponseType) => void;
-  setAppStatus: (status: RequestStatusType) => void;
-};
+type mapDispatchToPropsType = ReturnType<typeof mapDispatchToProps>;
 
 export type OwnPropsType = mapStateToPropsType & mapDispatchToPropsType;
 export type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnPropsType;
@@ -66,10 +64,12 @@ const mapStateToProps = (state: StateType): ProfilePageType => {
   };
 };
 
-const mapDispatchToProps = {
-  createPost: createPostAC,
-  setProfile: setProfileAC,
-  setAppStatus: setAppStatusAC,
+const mapDispatchToProps = (dispatch: ThunkDispatch<StateType, unknown, AnyAction>) => {
+  return {
+    createPost: (postText: string) => dispatch(createPostAC(postText)),
+    setAppStatus: (status: RequestStatusType) => dispatch(setAppStatusAC(status)),
+    getProfile: (userId: string) => dispatch(getProfileTC(userId)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProfileContainer));
