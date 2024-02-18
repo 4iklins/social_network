@@ -1,0 +1,14 @@
+.statusText {
+  word-wrap: break-word;
+  text-wrap: wrap;
+  line-height: 31px;
+}
+
+.statusTextHead {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.inputField {
+  padding: 5px 10px;
+}

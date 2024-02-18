@@ -1,7 +1,7 @@
+import { ProfileResponseType } from '../../../api/profile-api';
 import Button from '../../../components/Button/Button';
 import InputField from '../../../components/InputField/InputField';
 import { PostType } from '../../../data/state';
-import { ProfileResponseType } from '../ProfileConainer';
 import Post from './Post/Post';
 import style from './posts.module.css';
 import { ChangeEvent, useState } from 'react';
@@ -10,7 +10,7 @@ type PostPropsType = {
   posts: PostType[];
   profile: ProfileResponseType;
   createPost: (postText: string) => void;
-  myId: string;
+  myId: number;
 };
 
 const Posts = ({ profile, posts, myId, createPost }: PostPropsType) => {

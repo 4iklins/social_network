@@ -1,6 +1,6 @@
-import { profileAPI } from '../api/profile-api';
+import { ResultCode } from '../api/instance';
+import { ProfileResponseType, profileAPI } from '../api/profile-api';
 import { idGen } from '../common/idForPost';
-import { ProfileResponseType } from '../pages/Profile/ProfileConainer';
 import { setAppStatusAC } from './app-reducer';
 import { AppThunk } from './store';
 
@@ -8,6 +8,7 @@ export interface ProfilePageType {
   posts: PostType[];
   newPostText: string;
   profile: ProfileResponseType | null;
+  status: string;
 }
 export interface PostType {
   id: number;
@@ -27,9 +28,13 @@ const initialState: ProfilePageType = {
   ],
   newPostText: '',
   profile: null,
+  status: '',
 };
 
-export type ActionsType = ReturnType<typeof createPostAC> | ReturnType<typeof setProfileAC>;
+export type ActionsType =
+  | ReturnType<typeof createPostAC>
+  | ReturnType<typeof setProfileAC>
+  | ReturnType<typeof setStatusAC>;
 
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionsType): ProfilePageType => {
   switch (action.type) {
@@ -40,6 +45,8 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
       };
     case 'SET-PROFILE':
       return { ...state, profile: action.profile };
+    case 'SET-STATUS':
+      return { ...state, status: action.status };
     default:
       return state;
   }
@@ -49,9 +56,22 @@ export const getProfileTC =
   (userId: string): AppThunk =>
   dispatch => {
     dispatch(setAppStatusAC('loading'));
-    profileAPI.getProfile(userId).then(res => {
-      dispatch(setProfileAC(res.data));
+    const profile = profileAPI.getProfile(userId);
+    const status = profileAPI.getStatus(userId);
+    Promise.all([profile, status]).then(res => {
+      dispatch(setProfileAC(res[0].data));
+      dispatch(setStatusAC(res[1].data));
       dispatch(setAppStatusAC('succeeded'));
+    });
+  };
+
+export const setProfileStatusTC =
+  (status: string): AppThunk =>
+  dispatch => {
+    profileAPI.setStatus(status).then(res => {
+      if (res.data.resultCode === ResultCode.succes) {
+        dispatch(setStatusAC(status));
+      }
     });
   };
 
@@ -60,4 +80,8 @@ export const createPostAC = (postText: string) => {
 };
 export const setProfileAC = (profile: ProfileResponseType) => {
   return { type: 'SET-PROFILE', profile } as const;
+};
+
+export const setStatusAC = (status: string) => {
+  return { type: 'SET-STATUS', status } as const;
 };
