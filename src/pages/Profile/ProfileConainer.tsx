@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 import Profile from './Profile';
 import { StateType } from '../../redux/store';
-import { ProfilePageType, createPostAC, getProfileTC, setProfileStatusTC } from '../../redux/profile-reducer';
+import {  createPostAC, getProfileTC, setProfileStatusTC } from '../../redux/profile-reducer';
 import React from 'react';
-import axios from 'axios';
 import { RequestStatusType, setAppStatusAC } from '../../redux/app-reducer';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { ThunkDispatch } from 'redux-thunk';
@@ -31,8 +30,7 @@ type PathParamsType = {
 };
 type mapStateToPropsType = ReturnType<typeof mapStateToProps>;
 type mapDispatchToPropsType = ReturnType<typeof mapDispatchToProps>;
-
-export type OwnPropsType = mapStateToPropsType & mapDispatchToPropsType;
+type OwnPropsType = mapStateToPropsType & mapDispatchToPropsType;
 export type ProfilePropsType = RouteComponentProps<PathParamsType> & OwnPropsType;
 
 const mapStateToProps = (state: StateType) => {

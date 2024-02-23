@@ -1,3 +1,8 @@
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
 .inputField {
   width: 100%;
   padding: 14px 30px;
@@ -10,10 +15,46 @@
   border: 1px solid var(--font-secondary);
 }
 
+.errorField {
+  border: 1px solid var(--error);
+}
+
 .inputField:focus-visible {
   outline: 1px solid var(--font-secondary);
 }
 
 .inputField::placeholder {
   color: var(--font-secondary);
+}
+
+.inputField[type='checkbox'] {
+  width: auto;
+  margin: 5px;
+}
+
+.inputField[type='checkbox']::after {
+  content: '';
+  display: block;
+  position: relative;
+  width: 25px;
+  height: 25px;
+  border: 1px solid var(--font-secondary);
+  background-color: var(--bg-secondary);
+  top: -6px;
+  left: -6px;
+}
+
+.inputField[type='checkbox']:checked::after {
+  background-color: var(--primary);
+}
+
+.inputField[type='checkbox']:focus-visible::after {
+  outline: 1px solid var(--primary);
+}
+
+.error {
+  position: absolute;
+  color: var(--error);
+  padding: 2px 0;
+  font-size: 14px;
 }

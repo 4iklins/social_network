@@ -9,10 +9,12 @@
 
 .flexWrapper {
   display: flex;
-  justify-content: space-between;
+  gap: 20px;
   align-items: center;
 }
-
+.flexWrapper nav {
+  margin-left: auto;
+}
 .menuList {
   display: flex;
 }
@@ -58,4 +60,8 @@
 }
 .progress {
   bottom: 30px;
+}
+.logout {
+  color: var(--font-color);
+  cursor: pointer;
 }

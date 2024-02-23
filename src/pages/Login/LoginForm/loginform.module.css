@@ -1,0 +1,13 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.remember {
+  display: flex;
+  height: 25px;
+  align-items: center;
+  gap: 20px;
+  justify-content: flex-end;
+}

@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setInitializedTC } from './redux/app-reducer';
 import { StateType } from './redux/store';
 import LiearProgress from './components/LinearProgress/LinearProgress';
+import Login from './pages/Login/Login';
+import { Route, Switch } from 'react-router-dom';
 
 type AppProps = {};
 
@@ -20,7 +22,9 @@ function App({}: AppProps) {
   return isInitialized ? (
     <div className={style.app}>
       <HeaderContainer />
-      <Main />
+
+        <Route path={'/'} render={() => <Main />} />
+        <Route path={'/login'} render={() => <Login />} />
       <Footer />
     </div>
   ) : (

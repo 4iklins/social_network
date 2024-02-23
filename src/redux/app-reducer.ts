@@ -1,4 +1,4 @@
-import { autAPI } from '../api/auth-api';
+import { authAPI } from '../api/auth-api';
 import { authMeAC, setMyAuthDataAC } from './auth-reducer';
 import { AppThunk } from './store';
 
@@ -31,7 +31,7 @@ export const setInitializedAC = () => {
 };
 
 export const setInitializedTC = (): AppThunk => dispatch => {
-  autAPI.me().then(res => {
+  authAPI.me().then(res => {
     if (res.data.resultCode === 0) {
       dispatch(authMeAC(true));
       dispatch(setMyAuthDataAC(res.data.data));
