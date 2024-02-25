@@ -64,26 +64,28 @@ const usersReducer = (state = initialState, action: ActionsType): UsersPageType 
   }
 };
 
-export const getUsersTC = (url: string) => (dispatch: Dispatch) => {
+export const getUsersTC = (url: string) => async (dispatch: Dispatch) => {
   dispatch(setAppStatusAC('loading'));
-  return usersAPI.getUsers(url).then(res => {
+  try {
+    const res = await usersAPI.getUsers(url);
     dispatch(setUsersAC(res.data.items));
     dispatch(setTotalCountAC(res.data.totalCount));
     dispatch(setAppStatusAC('succeeded'));
-  });
+    return res;
+  } catch {}
 };
 export const followToggleTC =
   (userId: number, follow: boolean): AppThunk =>
-  dispatch => {
+  async dispatch => {
     dispatch(setFollowingInProgressAC(userId, true));
     const followed = follow ? usersAPI.followUser : usersAPI.unfollowUser;
-    debugger;
-    followed(userId).then(res => {
+    try {
+      const res = await followed(userId);
       if (res.data.resultCode === ResultCode.succes) {
         dispatch(followToggleUserAC(userId, follow));
         dispatch(setFollowingInProgressAC(userId, false));
       }
-    });
+    } catch {}
   };
 
 export const setUsersAC = (users: UserType[]) => {

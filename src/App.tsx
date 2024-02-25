@@ -8,12 +8,14 @@ import { setInitializedTC } from './redux/app-reducer';
 import { StateType } from './redux/store';
 import LiearProgress from './components/LinearProgress/LinearProgress';
 import Login from './pages/Login/Login';
-import { Route, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import ErrorSnackBar from './components/ErrorSnackBar/ErrorSnackBar';
 
 type AppProps = {};
 
 function App({}: AppProps) {
   const isInitialized = useSelector<StateType, boolean>(state => state.app.initialized);
+  const appError = useSelector<StateType, string>(state => state.app.error);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setInitializedTC());
@@ -22,9 +24,9 @@ function App({}: AppProps) {
   return isInitialized ? (
     <div className={style.app}>
       <HeaderContainer />
-
-        <Route path={'/'} render={() => <Main />} />
-        <Route path={'/login'} render={() => <Login />} />
+      <Route path={'/'} render={() => <Main />} />
+      <Route path={'/login'} render={() => <Login />} />
+      {!!appError && <ErrorSnackBar />}
       <Footer />
     </div>
   ) : (

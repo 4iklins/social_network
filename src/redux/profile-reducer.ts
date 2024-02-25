@@ -54,25 +54,27 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
 
 export const getProfileTC =
   (userId: string): AppThunk =>
-  dispatch => {
+  async dispatch => {
     dispatch(setAppStatusAC('loading'));
-    const profile = profileAPI.getProfile(userId);
-    const status = profileAPI.getStatus(userId);
-    Promise.all([profile, status]).then(res => {
+    try {
+      const profile = profileAPI.getProfile(userId);
+      const status = profileAPI.getStatus(userId);
+      const res = await Promise.all([profile, status]);
       dispatch(setProfileAC(res[0].data));
       dispatch(setStatusAC(res[1].data));
       dispatch(setAppStatusAC('succeeded'));
-    });
+    } catch {}
   };
 
 export const setProfileStatusTC =
   (status: string): AppThunk =>
-  dispatch => {
-    profileAPI.setStatus(status).then(res => {
+  async dispatch => {
+    try {
+      const res = await profileAPI.setStatus(status);
       if (res.data.resultCode === ResultCode.succes) {
         dispatch(setStatusAC(status));
       }
-    });
+    } catch {}
   };
 
 export const createPostAC = (postText: string) => {

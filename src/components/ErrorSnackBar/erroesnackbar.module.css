@@ -1,0 +1,12 @@
+.errorSnackBar {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  z-index: 10;
+  background-color: var(--error);
+  color: var(--bg-color);
+  padding: 14px 30px;
+  max-width: 50%;
+  word-wrap: break-word;
+  text-wrap: wrap;
+}

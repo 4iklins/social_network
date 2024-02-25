@@ -1,5 +1,7 @@
 import { AuthMeType, FormData, authAPI } from '../api/auth-api';
 import { ResultCode } from '../api/instance';
+import { handleServerAppError } from '../utils/handleServerAppError';
+import { handleServerNetworkError } from '../utils/handleServerNetworkError';
 import { AppThunk } from './store';
 
 const initialState = {
@@ -25,29 +27,38 @@ const authReducer = (state = initialState, action: ActionsType): AuthStateType =
 
 export const loginTC =
   (data: FormData): AppThunk =>
-  dispatch => {
-    authAPI.login(data).then(res => {
+  async dispatch => {
+    try {
+      const res = await authAPI.login(data);
       if (res.data.resultCode === ResultCode.succes) {
         dispatch(setMyAuthDataAC({ id: res.data.data.userId, email: '', login: '' }));
         dispatch(authMeAC(true));
+      } else {
+        handleServerAppError(res.data, dispatch);
       }
       if (res.data.resultCode === ResultCode.captcha) {
         authAPI.captcha().then(res => {
           dispatch(setCaptchaAC(res.data.url));
         });
       }
-    });
+    } catch (err) {
+      handleServerNetworkError(err, dispatch);
+    }
   };
 
-export const logoutTC = (): AppThunk => dispatch => {
-  authAPI.logout().then(res => {
+export const logoutTC = (): AppThunk => async dispatch => {
+  try {
+    const res = await authAPI.logout();
     if (res.data.resultCode === ResultCode.succes) {
-      debugger;
       dispatch(setCaptchaAC(''));
       dispatch(authMeAC(false));
       dispatch(setMyAuthDataAC({} as AuthMeType));
+    } else {
+      handleServerAppError(res.data, dispatch);
     }
-  });
+  } catch (err) {
+    handleServerNetworkError(err, dispatch);
+  }
 };
 
 export const authMeAC = (isLogined: boolean) => {
